@@ -264,10 +264,10 @@ class _NavbarState extends State<Navbar> {
                 if (tagsExist)
                   Container(
                     height: 40,
-                    child: ScrollablePositionedList.builder(
+                    child: widget.tags != null ? ScrollablePositionedList.builder(
                       itemScrollController: _scrollController,
                       scrollDirection: Axis.horizontal,
-                      itemCount: widget.tags?.length,
+                      itemCount: widget.tags!.length,
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           onTap: () {
@@ -307,7 +307,7 @@ class _NavbarState extends State<Navbar> {
                               )),
                         );
                       },
-                    ),
+                    ) : Container(),
                   )
               ],
             ),
