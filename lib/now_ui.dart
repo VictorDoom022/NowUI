@@ -1,5 +1,6 @@
 library now_ui;
 
+export 'package:now_ui/src/Theme.dart';
 export 'package:now_ui/src/card-category.dart';
 export 'package:now_ui/src/card-horizontal.dart';
 export 'package:now_ui/src/card-small.dart';
