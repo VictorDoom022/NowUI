@@ -15,6 +15,7 @@ class Navbar extends StatefulWidget implements PreferredSizeWidget {
   final String categoryOne;
   final String categoryTwo;
   final bool searchBar;
+  final bool showOpenDrawer;
   final bool backButton;
   final bool transparent;
   final bool reverseTextcolor;
@@ -41,6 +42,7 @@ class Navbar extends StatefulWidget implements PreferredSizeWidget {
       this.searchOnChanged,
       this.onSearchIconTap,
       this.searchAutofocus = false,
+      this.showOpenDrawer = true,
       this.backButton = false,
       this.noShadow = false,
       this.bgColor = NowUIColors.white,
@@ -107,7 +109,7 @@ class _NavbarState extends State<Navbar> {
                   children: [
                     Row(
                       children: [
-                        IconButton(
+                        widget.showOpenDrawer ? IconButton(
                             icon: Icon(
                                 !widget.backButton
                                     ? Icons.menu
@@ -126,7 +128,8 @@ class _NavbarState extends State<Navbar> {
                               } else {
                                 Navigator.pop(context);
                               }
-                            }),
+                            }
+                        ) : Container(height: 48),
                         Text(widget.title,
                             style: TextStyle(
                                 color: !widget.transparent
