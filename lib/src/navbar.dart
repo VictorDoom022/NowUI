@@ -21,9 +21,9 @@ class Navbar extends StatefulWidget implements PreferredSizeWidget {
   final List<RightOptionWidget>? rightOptionWidgets;
   final List<String>? tags;
   final Function? getCurrentPage;
-  final bool isOnSearch;
   final TextEditingController? searchController;
   final Function(String)? searchOnChanged;
+  final VoidCallback? onSearchIconTap;
   final bool searchAutofocus;
   final bool noShadow;
   final Color bgColor;
@@ -38,8 +38,8 @@ class Navbar extends StatefulWidget implements PreferredSizeWidget {
       this.reverseTextcolor = false,
       this.getCurrentPage,
       this.searchController,
-      this.isOnSearch = false,
       this.searchOnChanged,
+      this.onSearchIconTap,
       this.searchAutofocus = false,
       this.backButton = false,
       this.noShadow = false,
@@ -163,13 +163,8 @@ class _NavbarState extends State<Navbar> {
                           color: NowUIColors.time,
                           size: 20,
                         ),
-                        onTap: () {
-                          // if (!widget.isOnSearch)
-                          //   Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //           builder: (context) => Search()));
-                        }),
+                        onTap: widget.onSearchIconTap,
+                      ),
                   ),
                 const SizedBox(
                   height: 10.0,
