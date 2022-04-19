@@ -7,14 +7,18 @@ class DrawerTile extends StatelessWidget {
   final VoidCallback? onTap;
   final bool isSelected;
   final Color iconColor;
+  final Color? defaultColor;
+  final Color? selectedColor;
 
-  DrawerTile(
-      {
+  DrawerTile({
       this.title,
       this.icon,
       this.onTap,
       this.isSelected = false,
-      this.iconColor = NowUIColors.text});
+      this.iconColor = NowUIColors.text,
+      this.defaultColor = NowUIColors.primary,
+      this.selectedColor = NowUIColors.white,
+    });
 
   @override
   Widget build(BuildContext context) {
@@ -33,26 +37,26 @@ class DrawerTile extends StatelessWidget {
                     spreadRadius: 3,
                     blurRadius: 10)
               ],
-              color: isSelected ? NowUIColors.white : NowUIColors.primary,
+              color: isSelected ? selectedColor : defaultColor,
               borderRadius: const BorderRadius.all(Radius.circular(54))),
           child: Row(
             children: [
-              Icon(icon,
+              Icon(
+                icon,
                   size: 18,
-                  color: isSelected
-                      ? NowUIColors.primary
-                      : NowUIColors.white.withOpacity(0.6)),
+                  color:Colors.white
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                    title == null ? '' : title!,
-                    style: TextStyle(
-                        letterSpacing: .3,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w200,
-                        color: isSelected
-                            ? NowUIColors.primary
-                            : NowUIColors.white.withOpacity(0.8))),
+                    style: const TextStyle(
+                      letterSpacing: .3,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w200,
+                      color: Colors.white
+                    )
+                  ),
               )
             ],
           )),
