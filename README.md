@@ -58,56 +58,12 @@ View [all screens here](https://demos.creative-tim.com/now-ui-pro-flutter/).
 ## Demo
 - [Start page](https://demos.creative-tim.com/now-ui-react-native)
 
-
-## Quick start
-- Buy the PRO from [Creative Tim](https://www.creative-tim.com/product/now-ui-pro-flutter)
-
-
 ## Documentation
-The documentation for the Now UI Flutter is hosted at our [website](https://www.creative-tim.com/learning-lab/flutter/overview/now-ui).
+The documentation for the Now UI Flutter is ay [website](https://www.creative-tim.com/learning-lab/flutter/overview/now-ui).
 
 
 ## File Structure
 Within the download you'll find the following directories and files:
-
-```
-now_ui_flutter/
-├── android
-├── assets
-│   ├── fonts
-│   └── imgs
-├── build
-├── ios
-├── lib
-│   ├── constants
-│   ├── main.dart
-│   ├── screens
-│   │   ├── articles.dart
-│   │   ├── components.dart
-│   │   ├── home.dart
-│   │   ├── onboarding.dart
-│   │   ├── pro.dart
-│   │   ├── profile.dart
-│   │   ├── register.dart
-│   │   └── settings.dart
-│   └── widgets
-│       ├── card-category.dart
-│       ├── card-horizontal.dart
-│       ├── card-small.dart
-│       ├── card-square.dart
-│       ├── drawer-tile.dart
-│       ├── drawer.dart
-│       ├── input.dart
-│       ├── navbar.dart
-│       ├── photo-album.dart
-│       ├── slider-product.dart
-│       └── table-cell.dart
-├── now_ui_flutter.iml
-├── pubspec.lock
-├── pubspec.yaml
-└── test
-```
-
 
 ## OS Support
 
