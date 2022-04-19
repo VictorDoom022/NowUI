@@ -1,28 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Theme.dart';
 import 'drawer-tile.dart';
 
 class NowDrawer extends StatelessWidget {
+
+  final Color? backgroundColor;
   final String? currentPage;
+  final Widget? drawerHeader;
+  final List<DrawerTile> tiles;
+  final List<NowDrawerSection>? drawerSection;
 
-  NowDrawer({this.currentPage});
-
-  _launchURL() async {
-    const url = 'https://creative-tim.com';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+  NowDrawer({this.backgroundColor = NowUIColors.primary, this.currentPage, this.drawerHeader, required this.tiles, this.drawerSection});
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
         child: Container(
-      color: NowUIColors.primary,
+      color: backgroundColor,
       child: Column(children: [
         Container(
             height: MediaQuery.of(context).size.height * 0.1,
@@ -36,7 +30,7 @@ class NowDrawer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   textBaseline: TextBaseline.alphabetic,
                   children: [
-                    Image.asset("assets/imgs/now-logo.png"),
+                    drawerHeader != null ? drawerHeader! : Container(),
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: IconButton(
@@ -54,97 +48,55 @@ class NowDrawer extends StatelessWidget {
         Expanded(
           flex: 2,
           child: ListView(
-            padding: EdgeInsets.only(top: 36, left: 8, right: 16),
+            padding: const EdgeInsets.only(top: 36, left: 8, right: 16),
             children: [
-              DrawerTile(
-                  icon: FontAwesomeIcons.home,
-                  onTap: () {
-                    if (currentPage != "Home")
-                      Navigator.pushReplacementNamed(context, '/home');
-                  },
-                  iconColor: NowUIColors.primary,
-                  title: "Home",
-                  isSelected: currentPage == "Home" ? true : false),
-              DrawerTile(
-                  icon: FontAwesomeIcons.dharmachakra,
-                  onTap: () {
-                    if (currentPage != "Components")
-                      Navigator.pushReplacementNamed(context, '/components');
-                  },
-                  iconColor: NowUIColors.error,
-                  title: "Components",
-                  isSelected: currentPage == "Components" ? true : false),
-              DrawerTile(
-                  icon: FontAwesomeIcons.newspaper,
-                  onTap: () {
-                    if (currentPage != "Articles")
-                      Navigator.pushReplacementNamed(context, '/articles');
-                  },
-                  iconColor: NowUIColors.primary,
-                  title: "Articles",
-                  isSelected: currentPage == "Articles" ? true : false),
-              DrawerTile(
-                  icon: FontAwesomeIcons.user,
-                  onTap: () {
-                    if (currentPage != "Profile")
-                      Navigator.pushReplacementNamed(context, '/profile');
-                  },
-                  iconColor: NowUIColors.warning,
-                  title: "Profile",
-                  isSelected: currentPage == "Profile" ? true : false),
-              DrawerTile(
-                  icon: FontAwesomeIcons.fileInvoice,
-                  onTap: () {
-                    if (currentPage != "Account")
-                      Navigator.pushReplacementNamed(context, '/account');
-                  },
-                  iconColor: NowUIColors.info,
-                  title: "Account",
-                  isSelected: currentPage == "Account" ? true : false),
-              DrawerTile(
-                  icon: FontAwesomeIcons.cog,
-                  onTap: () {
-                    if (currentPage != "Settings")
-                      Navigator.pushReplacementNamed(context, '/settings');
-                  },
-                  iconColor: NowUIColors.success,
-                  title: "Settings",
-                  isSelected: currentPage == "Settings" ? true : false),
+              for(var item in tiles)
+                item
             ],
           ),
         ),
-        Expanded(
-          flex: 1,
-          child: Container(
-              padding: const EdgeInsets.only(left: 8, right: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Divider(
-                      height: 4,
-                      thickness: 0,
-                      color: NowUIColors.white.withOpacity(0.8)),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 16.0, left: 16, bottom: 8),
-                    child: Text("DOCUMENTATION",
-                        style: TextStyle(
-                          color: NowUIColors.white.withOpacity(0.8),
-                          fontSize: 13,
-                        )),
-                  ),
-                  DrawerTile(
-                      icon: FontAwesomeIcons.satellite,
-                      onTap: _launchURL,
-                      iconColor: NowUIColors.muted,
-                      title: "Getting Started",
-                      isSelected:
-                          currentPage == "Getting started" ? true : false),
-                ],
-              )),
-        ),
+        if(drawerSection != null)
+        for(var item in drawerSection!)
+          item
       ]),
     ));
+  }
+}
+
+class NowDrawerSection extends StatelessWidget {
+
+  final String sectionTitle;
+  final List<DrawerTile> sectionDrawerTile;
+
+  const NowDrawerSection({ Key? key, required this.sectionTitle, required this.sectionDrawerTile }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: Container(
+          padding: const EdgeInsets.only(left: 8, right: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Divider(
+                  height: 4,
+                  thickness: 0,
+                  color: NowUIColors.white.withOpacity(0.8)),
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 16.0, left: 16, bottom: 8),
+                child: Text(sectionTitle,
+                    style: TextStyle(
+                      color: NowUIColors.white.withOpacity(0.8),
+                      fontSize: 13,
+                    )),
+              ),
+              for(var item in sectionDrawerTile)
+                item
+            ],
+          )),
+        );
   }
 }
