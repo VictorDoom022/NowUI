@@ -18,7 +18,7 @@ class Navbar extends StatefulWidget implements PreferredSizeWidget {
   final bool backButton;
   final bool transparent;
   final bool reverseTextcolor;
-  final bool rightOptions;
+  final List<RightOptionWidget>? rightOptionWidgets;
   final List<String>? tags;
   final Function? getCurrentPage;
   final bool isOnSearch;
@@ -34,7 +34,7 @@ class Navbar extends StatefulWidget implements PreferredSizeWidget {
       this.categoryTwo = "",
       this.tags,
       this.transparent = false,
-      this.rightOptions = true,
+      this.rightOptionWidgets,
       this.reverseTextcolor = false,
       this.getCurrentPage,
       this.searchController,
@@ -140,50 +140,13 @@ class _NavbarState extends State<Navbar> {
                                 fontSize: 18.0)),
                       ],
                     ),
-                    if (widget.rightOptions)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => Notifications()));
-                            },
-                            child: IconButton(
-                                icon: Icon(Icons.notifications_active,
-                                    color: !widget.transparent
-                                        ? (widget.bgColor == NowUIColors.white
-                                            ? NowUIColors.text
-                                            : NowUIColors.white)
-                                        : (widget.reverseTextcolor
-                                            ? NowUIColors.text
-                                            : NowUIColors.white),
-                                    size: 22.0),
-                                onPressed: null),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => Cart()));
-                            },
-                            child: IconButton(
-                                icon: Icon(Icons.shopping_basket,
-                                    color: !widget.transparent
-                                        ? (widget.bgColor == NowUIColors.white
-                                            ? NowUIColors.text
-                                            : NowUIColors.white)
-                                        : (widget.reverseTextcolor
-                                            ? NowUIColors.text
-                                            : NowUIColors.white),
-                                    size: 22.0),
-                                onPressed: null),
-                          ),
-                        ],
-                      )
+                    widget.rightOptionWidgets != null ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        for(var item in widget.rightOptionWidgets!)
+                          item
+                      ],
+                    ) : Container()
                   ],
                 ),
                 if (widget.searchBar)
@@ -313,5 +276,26 @@ class _NavbarState extends State<Navbar> {
             ),
           ),
         ));
+  }
+}
+
+class RightOptionWidget extends StatelessWidget {
+
+  final IconData icon;
+  final Color iconColor;
+  final VoidCallback? onTap;
+
+  const RightOptionWidget({ Key? key, required this.icon, required this.iconColor, this.onTap }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Icon(
+        icon,
+          color: iconColor,
+          size: 22.0
+      ),
+    );
   }
 }
